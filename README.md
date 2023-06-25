@@ -38,3 +38,48 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 # joaoNewsApp
 # joaoNewsApp
+
+
+stepzen import curl http://api.mediastack.com/v1/news?access_key=dfe76a1ce79ff084d7730fcc8a0b270c&sources=business,sports
+
+stepzen import curl --request GET 'http://api.mediastack.com/v1/news?access_key=dfe76a1ce79ff084d7730fcc8a0b270c&sources=business,sports'  --query-name=typicodeQuery --query-type=Typicode --name=typicodeQuery  
+
+
+
+type DataEntry {
+  author: String
+  category: String
+  country: String
+  description: String
+  image: JSON
+  language: String
+  published_at: DateTime
+  source: String
+  title: String
+  url: String
+}
+type Pagination {
+  count: Int
+  limit: Int
+  offset: Int
+  total: Int
+}
+type Typicode {
+  data: [DataEntry]
+  pagination: Pagination
+}
+
+type Query {
+  typicodeQuery(
+    access_key: String, 
+    sources: String,
+    countries: String,
+    categories: String,
+    limit: String,
+    offset: String,
+    sort: String,
+    keywords: String
+  
+  ): Typicode
+    @rest(endpoint: "http://api.mediastack.com/v1/news")
+}
